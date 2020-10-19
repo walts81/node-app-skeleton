@@ -1,8 +1,8 @@
 import { counter } from './counter';
 
 const main = () => {
-  counter.value += 1; 
-  console.log(counter); 
+  counter.value += 1;
+  console.log(counter);
 };
 
 main();
