@@ -13,16 +13,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|ts)$/,
-        exclude: [/node_modules/, /\.spec\.(js|ts)$/],
+        test: /\.(j|t)sx?$/,
+        exclude: [/node_modules/, /\.spec\.(j|t)sx?$/],
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
         },
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   target: 'node',
 };
