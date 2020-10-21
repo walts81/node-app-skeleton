@@ -6,7 +6,7 @@ import { main } from './index';
 describe('Index', () => {
   it('should increment counter when index is run', () => {
     expect(counter.value).to.eq(1);
-    main();
+    main.run();
     expect(counter.value).to.eq(2);
   });
 });
