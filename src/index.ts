@@ -1,24 +1,21 @@
 import './ioc-registrations';
-import { ILogger } from './logging';
-import { IAlarm, Sensor } from './alarm-system';
 import { propInject } from './ioc';
 import { IocTypes } from './ioc-types';
-import { counter } from './counter';
+import { Logger } from './logging';
+import { Counter } from './counter';
 
 class Main {
-  @propInject<ILogger>(IocTypes.logger) logger!: ILogger;
-  @propInject<IAlarm>(IocTypes.alarm) alarm!: IAlarm;
-  @propInject<Sensor>(IocTypes.sensor) sensor!: Sensor;
+  @propInject(IocTypes.logger) logger!: Logger;
+  @propInject(IocTypes.counter) counter!: Counter;
 
   run() {
-    counter.value++;
-    this.sensor.simulateOpen();
-    this.alarm.arm();
-    this.sensor.simulateOpen();
-    this.sensor.simulateClose();
-    this.alarm.disarm();
-    this.sensor.simulateClose();
-    this.logger.log(counter);
+    const log = [this.logger.log, this.logger.info, this.logger.warn, this.logger.error];
+    for (let i = 1; i <= 5; i++) {
+      let ix = i - 1;
+      if (ix >= log.length) ix = 0;
+      log[ix]('Counter value = ' + this.counter.value);
+      this.counter.increment();
+    }
   }
 }
 

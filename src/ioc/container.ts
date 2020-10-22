@@ -26,9 +26,6 @@ export const Container = {
   registerInstance: <T>(key: string, instance: T) => {
     registrations[key] = {
       key,
-      factory() {
-        return this.instance;
-      },
       instance,
       isSingleton: true,
     };

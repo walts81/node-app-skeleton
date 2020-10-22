@@ -1,9 +1,9 @@
-import { IocTypes as alarmTypes } from './alarm-system';
 import { IocTypes as loggingTypes } from './logging';
 
 const IocTypes = {
-  ...alarmTypes,
   ...loggingTypes,
+  counter: 'counter',
+  incrementer: 'incrementer',
 };
 
 export { IocTypes };

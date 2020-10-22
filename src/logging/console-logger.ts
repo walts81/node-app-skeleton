@@ -1,20 +1,54 @@
-import { ILogger } from './interfaces';
+import { Logger } from './interfaces';
 
 const getMessage = (message: any) => {
   return JSON.stringify(message);
 };
 
-export const ConsoleLogger: ILogger = {
+enum LogLevel {
+  debug,
+  info,
+  warn,
+  error,
+}
+
+const getLevelText = (level: LogLevel) => {
+  switch (level) {
+    case LogLevel.info:
+      return ' [INFO]';
+    case LogLevel.warn:
+      return ' [WARN]';
+    case LogLevel.error:
+      return '[ERROR]';
+    default:
+      return '[DEBUG]';
+  }
+};
+
+const consoleLog = (level: LogLevel, message: string) => {
+  const now = new Date().toISOString();
+  const m = `${getLevelText(level)} ${now}: ${message}`;
+  if (level === LogLevel.info) {
+    console.info(m);
+  } else if (level === LogLevel.warn) {
+    console.warn(m);
+  } else if (level === LogLevel.error) {
+    console.error(m);
+  } else {
+    console.log(m);
+  }
+};
+
+export const ConsoleLogger: Logger = {
   log(message: any): void {
-    console.log(`[DEBUG] ${getMessage(message)}`);
+    consoleLog(LogLevel.debug, getMessage(message));
   },
   info(message: any): void {
-    console.info(`[INFO] ${getMessage(message)}`);
+    consoleLog(LogLevel.info, getMessage(message));
   },
   warn(message: any): void {
-    console.warn(`[WARN] ${getMessage(message)}`);
+    consoleLog(LogLevel.warn, getMessage(message));
   },
   error(message: any): void {
-    console.error(`[ERROR] ${getMessage(message)}`);
+    consoleLog(LogLevel.error, getMessage(message));
   },
 };
